@@ -15,6 +15,10 @@ describe StringsXmlLocalizer do
   let(:from) { 'from.xml' }
   let(:to) { 'to.xml' }
 
+  before do
+    allow(GoTranslator).to receive(:translate).and_return('こんにちは！')
+  end
+
   it 'has a version number' do
     expect(StringsXmlLocalizer::VERSION).not_to be nil
   end
