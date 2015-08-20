@@ -63,7 +63,7 @@ StringsXmlLocalizer.file_to_file(from: 'input.xml', to: 'output.xml')
 - `:from`: File to read from, default: `strings.xml`
 - `:to`: File to write to, default: `output.xml`
 - `:sl`: Source language, default: `auto`
-- `:tl`: Target language, default: `ja`
+- `:tl`: Target language, default: `en`
 
 ## Contributing
 
