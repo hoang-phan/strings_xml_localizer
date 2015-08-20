@@ -34,7 +34,7 @@ input = %Q(
       <string name="hi">Hello!</string>
   </resources>
 )
-StringsXmlLocalizer.string_to_string(input)
+StringsXmlLocalizer.string_to_string(input, tl: :ja)
 
 ### OUTPUT
 # "\n<resources>\n  <string name=\"hello\">こんにちは！</string>\n  <string name=\"hi\">こんにちは！</string>\n</resources>\n"
@@ -62,6 +62,8 @@ StringsXmlLocalizer.file_to_file(from: 'input.xml', to: 'output.xml')
 ### Options:
 - `:from`: File to read from, default: `strings.xml`
 - `:to`: File to write to, default: `output.xml`
+- `:sl`: Source language, default: `auto`
+- `:tl`: Target language, default: `ja`
 
 ## Contributing
 

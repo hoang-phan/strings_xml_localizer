@@ -32,7 +32,7 @@ describe StringsXmlLocalizer do
     end
 
     after do
-      StringsXmlLocalizer.file_to_file(from: from, to: to)
+      StringsXmlLocalizer.file_to_file(from: from, to: to, tl: :ja)
     end
 
     it 'writes correct string' do
@@ -49,7 +49,7 @@ describe StringsXmlLocalizer do
     end
 
     after do
-      StringsXmlLocalizer.string_to_file(src, to: to)
+      StringsXmlLocalizer.string_to_file(src, to: to, tl: :ja)
     end
 
     it 'writes correct string' do
@@ -64,13 +64,13 @@ describe StringsXmlLocalizer do
     end
 
     it 'returns correct string' do
-      expect(StringsXmlLocalizer.file_to_string(from: from)).to eq expected_result
+      expect(StringsXmlLocalizer.file_to_string(from: from, tl: :ja)).to eq expected_result
     end
   end
 
   describe '.string_to_string' do
     it 'returns correct string' do
-      expect(StringsXmlLocalizer.string_to_string(src)).to eq expected_result
+      expect(StringsXmlLocalizer.string_to_string(src, tl: :ja)).to eq expected_result
     end
   end
 
@@ -92,16 +92,17 @@ describe StringsXmlLocalizer do
     let(:resources) { double }
     let(:index) { 1 }
     let(:text) { 'text' }
+    let(:source) { :en }
     let(:target) { :ja }
     let(:result) { 'result' }
 
     before do
       expect(resources).to receive(:string).with(index).and_return(double(text: text))
-      expect(GoTranslator).to receive(:translate).with(text, to: target).and_return(result)
+      expect(GoTranslator).to receive(:translate).with(text, from: source, to: target).and_return(result)
     end
 
     it 'returns correct result' do
-      expect(StringsXmlLocalizer.translate_string_at(resources, index, target)).to eq result
+      expect(StringsXmlLocalizer.translate_string_at(resources, index, source, target)).to eq result
     end
   end
 
@@ -109,7 +110,9 @@ describe StringsXmlLocalizer do
     let(:expected_result) do
       {
         from: StringsXmlLocalizer::DEFAULT_FROM,
-        to: StringsXmlLocalizer::DEFAULT_TO
+        to: StringsXmlLocalizer::DEFAULT_TO,
+        sl: StringsXmlLocalizer::DEFAULT_SOURCE_LANGUAGE,
+        tl: StringsXmlLocalizer::DEFAULT_TARGET_LANGUANGE
       }
     end
 

@@ -22,25 +22,25 @@ module StringsXmlLocalizer
     end
   end
 
-  def self.string_to_string(src)
+  def self.string_to_string(src, options = {})
     in_xml = Ox.parse(src)
     output = Ox::Document.new(version: '1.0', encoding: 'utf-8')
 
     in_resources = in_xml.resources
-    out_resources = generate_out_resources(in_resources)
+    out_resources = generate_out_resources(in_resources, options)
     output << out_resources
 
     Ox.dump(output)
   end
 
-  def self.generate_out_resources(in_resources)
+  def self.generate_out_resources(in_resources, options = {})
     out_resources = Ox::Element.new('resources')
     i = 0
     while 1
       begin
         out = Ox::Element.new('string')
         out[:name] = in_resources.string(i).attributes[:name]
-        out << translate_string_at(in_resources, i, :ja)
+        out << translate_string_at(in_resources, i, options[:sl], options[:tl])
         out_resources << out
         i += 1
       rescue
@@ -50,14 +50,16 @@ module StringsXmlLocalizer
     out_resources
   end
 
-  def self.translate_string_at(resources, index, to)
-    GoTranslator.translate(resources.string(index).text, to: to)
+  def self.translate_string_at(resources, index, from, to)
+    GoTranslator.translate(resources.string(index).text, from: from, to: to)
   end
 
   def self.default_options
     {
       from: DEFAULT_FROM,
-      to: DEFAULT_TO
+      to: DEFAULT_TO,
+      sl: DEFAULT_SOURCE_LANGUAGE,
+      tl: DEFAULT_TARGET_LANGUANGE
     }
   end
 end
