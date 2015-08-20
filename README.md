@@ -1,4 +1,4 @@
-# StringsXmlLocalizer
+# StringsXmlLocalizer [<img src="https://travis-ci.org/hoangphanea/strings_xml_localizer.svg" alt="Build Status" />](https://travis-ci.org/hoangphanea/strings_xml_localizer)
 
 A very simple gem to translate contents of a strings.xml file from one locale to another. It could be used for localize your app.
 
